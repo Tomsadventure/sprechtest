@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EDF1F4">
+<title>Sprechtest</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="kopf">
+  <div class="kopf-innen">
+    <button id="zurueck" class="kopf-knopf" type="button" hidden>‹ Listen</button>
+    <h1>Sprechtest</h1>
+    <span id="fortschritt" class="fortschritt"></span>
+  </div>
+</header>
+
+<main class="seite">
+  <!-- Auswahl der Wortliste -->
+  <section id="start" class="ansicht">
+    <p class="einleitung">Wortliste wählen, auf <b>Sprechen</b> tippen und das Wort laut sagen. Die App zeigt, was sie verstanden hat.</p>
+    <div id="hinweis" class="hinweis" hidden></div>
+    <div id="listen" class="listen"></div>
+    <div class="optionen">
+      <label class="schalter" for="opt-zeigen">
+        <input type="checkbox" id="opt-zeigen" checked>
+        <span><b>Wort anzeigen</b><small>Aus: Nur das deutsche Wort steht da, wie bei einem Wörtlitest.</small></span>
+      </label>
+      <label class="schalter" for="opt-mischen">
+        <input type="checkbox" id="opt-mischen">
+        <span><b>Reihenfolge mischen</b></span>
+      </label>
+    </div>
+  </section>
+
+  <!-- Ein Wort sprechen -->
+  <section id="ueben" class="ansicht" hidden>
+    <article class="karte">
+      <div class="karte-kopf">
+        <span id="u-liste" class="chip"></span>
+        <span id="u-typ" class="typ"></span>
+      </div>
+      <p id="u-de" class="de"></p>
+      <p id="u-wort" class="wort"></p>
+      <button id="u-aufdecken" class="aufdecken" type="button" hidden>Wort zeigen</button>
+      <p id="u-hinweis" class="wort-hinweis" hidden></p>
+
+      <div class="knoepfe">
+        <button id="u-sprechen" class="mic" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg>
+          <span id="u-sprechen-text">Sprechen</span>
+        </button>
+        <button id="u-anhoeren" class="anhoeren" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+          <span>Anhören</span>
+        </button>
+      </div>
+
+      <div id="u-ergebnis" class="ergebnis" aria-live="polite" hidden>
+        <span id="u-urteil" class="urteil"></span>
+        <p id="u-gehoert" class="gehoert"></p>
+        <p id="u-mehr" class="mehr"></p>
+      </div>
+    </article>
+
+    <nav class="nav">
+      <button id="u-vorher" class="sek" type="button">‹ Zurück</button>
+      <button id="u-weiter" class="haupt" type="button">Weiter ›</button>
+    </nav>
+  </section>
+
+  <!-- Zusammenfassung -->
+  <section id="ende" class="ansicht" hidden>
+    <div class="ende-kopf">
+      <h2 id="e-titel"></h2>
+      <p id="e-zahl" class="e-zahl"></p>
+      <div class="e-knoepfe">
+        <button id="e-nochmals" class="haupt" type="button">Nicht richtige nochmals</button>
+        <button id="e-auswahl" class="sek" type="button">Andere Liste</button>
+      </div>
+    </div>
+    <ol id="e-liste" class="e-liste"></ol>
+  </section>
+</main>
+
+<script src="woerter.js"></script>
+<script src="pruefen.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+@font-face { font-family: 'Nunito'; src: url('fonts/Nunito-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Nunito'; src: url('fonts/Nunito-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Nunito'; src: url('fonts/Nunito-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+@font-face { font-family: 'Andika'; src: url('fonts/Andika-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Andika'; src: url('fonts/Andika-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+
+/* Ein schlichtes Prüfwerkzeug: eine Spalte, eine Karte pro Wort, grosser Mikrofon-Knopf. */
+:root {
+  color-scheme: light;
+  --bg: #EDF1F4;
+  --card: #FFFFFF;
+  --ink: #1A2430;
+  --ink-soft: #5B6875;
+  --line: #D5DEE5;
+  --mic: #1D78B5;
+  --mic-deep: #135681;
+  --mic-soft: #DCEBF6;
+  --ok: #2F8A3E;
+  --ok-soft: #DDF1DF;
+  --fast: #A86F00;
+  --fast-soft: #FFF0C7;
+  --nein: #C8402F;
+  --nein-soft: #FBE1DC;
+  --font: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-wort: 'Andika', 'Nunito', system-ui, sans-serif;
+  --r: 18px;
+  --schatten: 0 2px 0 rgba(26, 36, 48, .06), 0 8px 20px rgba(26, 36, 48, .07);
+  --gut-l: max(16px, env(safe-area-inset-left));
+  --gut-r: max(16px, env(safe-area-inset-right));
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
+  font: 400 17px/1.45 var(--font);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--mic); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+/* Kopfzeile */
+.kopf { position: sticky; top: 0; z-index: 5; background: var(--card); border-bottom: 1px solid var(--line);
+  padding-top: env(safe-area-inset-top); }
+.kopf-innen { max-width: 640px; margin: 0 auto; padding: 10px var(--gut-r) 10px var(--gut-l);
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 52px; }
+.kopf h1 { grid-column: 2; margin: 0; font-size: 20px; font-weight: 800; letter-spacing: .01em; }
+.kopf-knopf { grid-column: 1; justify-self: start; border: 0; background: none; color: var(--mic-deep); font-weight: 700;
+  padding: 6px 8px; margin-left: -8px; border-radius: 10px; }
+.fortschritt { grid-column: 3; justify-self: end; color: var(--ink-soft); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.seite { max-width: 640px; margin: 0 auto; padding: 20px var(--gut-r) 32px var(--gut-l); }
+.ansicht { display: flex; flex-direction: column; gap: 18px; }
+
+/* Start */
+.einleitung { margin: 0; color: var(--ink-soft); }
+.hinweis { background: var(--nein-soft); color: #7A2216; border-radius: 14px; padding: 12px 14px; }
+.listen { display: grid; gap: 12px; }
+.liste { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; text-align: left;
+  background: var(--card); border: 2px solid transparent; border-radius: var(--r); padding: 14px 16px; box-shadow: var(--schatten); }
+.liste:hover { border-color: var(--farbe); }
+.liste .chip { background: var(--farbe); }
+.liste-text { min-width: 0; display: flex; flex-direction: column; }
+.liste-text b { font-size: 17px; }
+.liste-text small { color: var(--ink-soft); font-size: 14px; }
+.liste-zahl { color: var(--ink-soft); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.chip { display: inline-block; color: #fff; font-weight: 800; font-size: 13px; letter-spacing: .06em;
+  padding: 4px 9px; border-radius: 8px; }
+
+.optionen { display: grid; gap: 10px; }
+.schalter { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border-radius: 14px; padding: 12px 14px; cursor: pointer; }
+.schalter input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--mic); flex: none; }
+.schalter span { display: flex; flex-direction: column; }
+.schalter small { color: var(--ink-soft); font-size: 14px; }
+
+/* Wort-Karte */
+.karte { background: var(--card); border-radius: 24px; box-shadow: var(--schatten); padding: 18px 20px 22px;
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.karte-kopf { align-self: stretch; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+.typ { color: var(--ink-soft); font-size: 14px; }
+.de { margin: 0; color: var(--ink-soft); font-size: 19px; }
+.wort { margin: 0; font: 700 clamp(30px, 8vw, 44px)/1.15 var(--font-wort); overflow-wrap: anywhere; text-wrap: balance; }
+.wort.versteckt { color: var(--line); letter-spacing: .1em; }
+.aufdecken { border: 0; background: none; color: var(--mic-deep); font-weight: 700; text-decoration: underline; padding: 4px; }
+.wort-hinweis { margin: 0; color: var(--ink-soft); font-size: 15px; max-width: 34ch; }
+
+.knoepfe { display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+.mic, .anhoeren { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; font-weight: 800; }
+.mic svg, .anhoeren svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.mic svg rect { fill: currentColor; }
+.anhoeren svg path:first-child { fill: currentColor; }
+.mic { background: var(--mic); color: #fff; border: 0; padding: 16px 28px 16px 22px; font-size: 20px;
+  box-shadow: 0 4px 0 var(--mic-deep); transition: transform .08s; }
+.mic:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--mic-deep); }
+.mic.hoert { background: var(--nein); box-shadow: 0 4px 0 #8E2A1E; animation: puls 1.2s ease-in-out infinite; }
+@keyframes puls { 0%, 100% { outline: 0 solid rgba(200, 64, 47, .35); } 50% { outline: 10px solid rgba(200, 64, 47, .12); } }
+.anhoeren { background: var(--mic-soft); color: var(--mic-deep); border: 0; padding: 12px 18px 12px 14px; }
+
+.ergebnis { align-self: stretch; margin-top: 18px; border-radius: 16px; padding: 14px 16px; background: var(--bg);
+  display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.ergebnis.richtig { background: var(--ok-soft); }
+.ergebnis.fast { background: var(--fast-soft); }
+.ergebnis.falsch { background: var(--nein-soft); }
+.urteil { font-weight: 800; font-size: 18px; }
+.richtig .urteil { color: var(--ok); }
+.fast .urteil { color: var(--fast); }
+.falsch .urteil { color: var(--nein); }
+.gehoert { margin: 0; font-size: 18px; overflow-wrap: anywhere; }
+.gehoert q { font-family: var(--font-wort); font-weight: 700; }
+.mehr { margin: 0; color: var(--ink-soft); font-size: 14px; overflow-wrap: anywhere; }
+.mehr:empty { display: none; }
+
+.nav { display: flex; gap: 12px; }
+.nav button { flex: 1; }
+.haupt, .sek { border-radius: 14px; padding: 13px 16px; font-weight: 800; }
+.haupt { background: var(--ink); color: #fff; border: 0; }
+.sek { background: var(--card); border: 2px solid var(--line); }
+.sek:disabled { opacity: .45; cursor: default; }
+
+/* Zusammenfassung */
+.ende-kopf { background: var(--card); border-radius: 24px; box-shadow: var(--schatten); padding: 18px 20px; text-align: center; }
+.ende-kopf h2 { margin: 0; font-size: 18px; color: var(--ink-soft); font-weight: 700; text-wrap: balance; }
+.e-zahl { margin: 6px 0 14px; font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.e-knoepfe { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.e-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.e-liste li { background: var(--card); border-radius: 14px; padding: 10px 14px; display: grid; grid-template-columns: 1fr auto;
+  gap: 2px 12px; align-items: center; border-left: 5px solid var(--line); }
+.e-liste li.richtig { border-left-color: var(--ok); }
+.e-liste li.fast { border-left-color: #E3A21A; }
+.e-liste li.falsch { border-left-color: var(--nein); }
+.e-wort { font: 700 18px/1.25 var(--font-wort); min-width: 0; overflow-wrap: anywhere; }
+.e-stufe { font-weight: 800; font-size: 14px; white-space: nowrap; }
+.richtig .e-stufe { color: var(--ok); }
+.fast .e-stufe { color: var(--fast); }
+.falsch .e-stufe, .offen .e-stufe { color: var(--ink-soft); }
+.falsch .e-stufe { color: var(--nein); }
+.e-info { grid-column: 1 / -1; color: var(--ink-soft); font-size: 14px; overflow-wrap: anywhere; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mic.hoert { animation: none; outline: 6px solid rgba(200, 64, 47, .2); }
+}
